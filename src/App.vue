@@ -1,29 +1,14 @@
 <template>
-  <Register />
-  <Login />
 
-  <router-link to="/NewPost.vue">POOOOOOST</router-link>
+<!-- Ici il faudrait faire un header avec toute les router-link -->
+    <router-link to="/Login">Login</router-link>
+    <router-link to="/Register">Register</router-link>
+    <router-link to="/Profil">Profil</router-link>
+    <router-link to="/Modify">Modifier votre profil</router-link>
+    <router-link to="/NewPost">New post</router-link>
 
-
+    <router-view />
 </template>
 
-<script>
-//  enregistrer
-
-import Register from "./components/Register.vue";
-import Login from "./components/Login.vue";
-
-export default {
-  //   data(){
-  // return{
-
-  // }
-
-  //   },
-
-  components: {
-    Register,
-    Login,
-  },
-};
-</script>
+<style>
+</style>

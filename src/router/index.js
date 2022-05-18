@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Profil from "@/views/Profil.vue";
 import Modify from "@/views/Modify.vue";
 import NewPost from "@/views/NewPost.vue";
+import Login from "@/views/Login.vue";
+import Register from "@/views/Register.vue";
 
 const routes = [
   {
@@ -15,9 +17,19 @@ const routes = [
     component: Modify,
   },
   {
-    path: "/NewPost",
-    name: "NewPost",
+    path: "/Newpost",
+    name: "newpost",
     component: NewPost,
+  },
+  {
+    path: "/Login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/Register",
+    name: "register",
+    component: Register,
   },
 ];
 
