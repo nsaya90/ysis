@@ -1,33 +1,29 @@
 <template>
-  <Register/>
-  <Login/>
-  
+  <Register />
+  <Login />
+
+  <router-link to="/NewPost.vue">POOOOOOST</router-link>
+
+
 </template>
 
 <script>
 //  enregistrer
-const token = localStorage.getItem('token');
 
-console.log(token);
-
-import Register from './components/Register.vue'
-import Login from './components/Login.vue'
+import Register from "./components/Register.vue";
+import Login from "./components/Login.vue";
 
 export default {
-//   data(){
-// return{
-  
-// }
+  //   data(){
+  // return{
 
-//   },
+  // }
 
-  components:{
-   Register,
-   Login,
-  }
+  //   },
 
-}
-
-
-
+  components: {
+    Register,
+    Login,
+  },
+};
 </script>
