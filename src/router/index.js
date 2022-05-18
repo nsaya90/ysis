@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Profil from "@/views/Profil.vue";
 import Modify from "@/views/Modify.vue";
-
+import NewPost from "@/views/NewPost.vue";
 
 const routes = [
   {
@@ -14,7 +14,11 @@ const routes = [
     name: "modify",
     component: Modify,
   },
-  
+  {
+    path: "/NewPost",
+    name: "newpost",
+    component: NewPost,
+  },
 ];
 
 const router = createRouter({
