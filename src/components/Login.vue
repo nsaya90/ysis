@@ -1,56 +1,48 @@
 <template>
-  <!-----------------------------   TEMPLATE REGISTER -->
-  
-
-    <!-----------------------------   TEMPLATE LOGIN -->
-    <section class="login">
-      <h2>SE CONNECTER</h2>
-      <div id="mainContainer">
-        <!-- Formulaire de connexion -->
-        <form @submit.prevent="login">
-          <div class="input-container">
-            <label for="emailInput">Email : </label>
-            <input
-              type="email"
-              id="emailInput"
-              v-model="email"
-              placeholder="mail"
-              required
-            />
-          </div>
-
-          <div class="input-container">
-            <label for="passwordInput">Password : </label>
-            <input
-              type="password"
-              id="passwordInput"
-              v-model="password"
-              placeholder="1234"
-              required
-            />
-          </div>
-
-          <input class="login-button" type="submit" value="Se connecter" />
-        </form>
-
-        <p v-if="result === true" class="success">
-          Connexion réussie
-          <br />
-          message: {{ message }}
-        </p>
-        <p v-else-if="result === false" class="error">Connexion échouée</p>
+  <div id="mainContainer">
+    <!-- Formulaire de connexion -->
+    <form @submit.prevent="login">
+      <div class="input-container">
+        <label for="emailInput">Email : </label>
+        <input
+          type="email"
+          id="emailInput"
+          v-model="email"
+          placeholder="john.doe@lebocal.academy"
+          required
+        />
       </div>
-    </section>
-  
 
+      <div class="input-container">
+        <label for="passwordInput">Password : </label>
+        <input
+          type="password"
+          id="passwordInput"
+          v-model="password"
+          placeholder="1234"
+          required
+        />
+      </div>
+
+      <input class="login-button" type="submit" value="Se connecter" />
+    </form>
+
+    <p v-if="result === true" class="success">
+      Connexion réussie
+      <br />
+      Token: {{ token }}
+    </p>
+    <p v-else-if="result === false" class="error">Connexion échouée</p>
+  </div>
 </template>
-
-// SCRIPT---------------------------------------
-
 
 <script>
 
-// LOGIN ---------------------------------------
+// function buildAuthorizationHeader() {
+//   const token = localStorage.getItem('token');
+//   if (!token) return '';
+//   return `Bearer ${token}`;
+// }
 
 export default {
   data() {
@@ -58,7 +50,7 @@ export default {
       email: "",
       password: "",
       result: null,
-      message: "",
+      token: "",
     };
   },
 
@@ -70,9 +62,8 @@ export default {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          emailc: this.email,
-          passwordc: this.password,
-          
+          email: this.email,
+          password: this.password,
         }),
       };
 
@@ -82,19 +73,20 @@ export default {
       );
 
       const data = await response.json();
+
       this.result = data.success;
       if (data.success === true) {
-        this.message = "conexion réussie";
+        this.token = data.token;
+
+        localStorage["token"] = data.token;
+
+        // let key = localStorage["token"] 
+
       }
     },
   },
 };
-
-
-
-
 </script>
-
 
 
 
