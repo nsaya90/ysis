@@ -1,83 +1,130 @@
 <template>
-  <body>
-    <div id="root">
-      <div class="container">
-        <label class="newPost">
-          <h1>NEW POST</h1>
-          <p>test</p>
-          Publier
-          <input @input="setNewPost" type="text" name="post" />
-          <button @click="addPost" type="button">GO !</button>
-        </label>
+  <h1>Ajout d'un Post</h1>
 
-        <div class="columns">
-          <!-- on travail sur la liste de reception -->
-          <ul>
-            <li v-for="post in postList">
-              {{ post.text }}
-              <div class="actions">
-                <button @click="changeBackground()" :class="[theme.background]">
-                  j'aime
-                </button>
-              </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </body>
+  <input type="text" @input="taskDescription" />
+  <input type="text" @input="taskDescriptionContent" />
+
+  <p>{{ message }}</p>
+
+  <button @click="add">GO !</button>
+
+  <div class="box_todo">
+    <ul>
+      <label for="Todo">Tâche à faire</label>
+      <li v-for="elem in list" :key="elem.description">
+        {{ elem.title }}
+        {{ elem.description }}
+        <input type="button" value="Commencer" @click="commencer" />
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "Newtonsoft",
-  components: {},
-};
-const App = {
+  name: "Post",
   data() {
     return {
-      newPost: "",
-      postList: [],
-      idPost: 0,
-      theme: {
-        background: "",
-      },
+      list: [],
+      inputTask: "",
+      info: "",
+      infoContent: "",
+      message: "", // => token
+      result: null,
     };
   },
 
   methods: {
-    setNewPost: function (event) {
-      this.newPost = event.target.value;
-    },
-
-    addPost: function () {
-      if (!this.newPost) return;
-      let count = ++this.idPost;
-      id = "post" + count;
-
-      const newPost = {
-        text: this.newPost,
-        createdAt: new Date().getTime(),
-        status: "post",
-        number: id,
+    /* -----------------------------------------------------------------------------------------------*/
+    /* ------------------------------------METHODES DE L'API => POST ---------------------------------*/
+    /* -----------------------------------------------------------------------------------------------*/
+    async add() {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer token",
+        },
+        body: JSON.stringify({
+          title: this.info,
+          content: this.infoContent,
+        }),
       };
-      console.log(newPost);
 
-      this.postList = this.postList.concat(newPost);
-      this.newPost = "";
-    },
-    changeBackground: function () {
-      this.theme.background = "blu";
-    },
-  },
+      const reponse = await fetch(
+        "https://social-network-api.osc-fr1.scalingo.io/ysis/post",
+        options
+      );
 
-  computed: {
-    posted: function () {
-      return this.postList.filter((task) => task.status === "post");
+      const data = await reponse.json();
+      console.log("hello");
+      this.result = data.success;
+      if (data.success === true) {
+        this.message = "data.message";
+      }
+      // }, => end methods de l'API
+    },
+
+    /* -----------------------------------------------------------------------------------------------*/
+    /* ------------------------------------METHODES DE L'API => POST/COMMENT ------------------------*/
+    /* -----------------------------------------------------------------------------------------------*/
+
+    async postComment() {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer token",
+        },
+        body: JSON.stringify({
+          // postId:
+          // content:
+        }),
+      };
+      const reponse = await fetch(
+        "https://social-network-api.osc-fr1.scalingo.io/ysis/post/comment",
+        options
+      );
+      const data = await reponse.json();
+
+      this.result = data.success;
+      if (data.sucess === true) {
+        this.message = data.message;
+      }
+    },
+
+    /* -----------------------------------------------------------------------------------------------*/
+    /* ------------------------------------METHODES DE L'API => POST/LIKE ----------------------------*/
+    /* -----------------------------------------------------------------------------------------------*/
+
+    async postLike() {
+      const options = {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "bearer token",
+        },
+        body: JSON.stringify({
+          // postId:
+        }),
+      };
+      const reponse = await fetch(
+        "https://social-network-api.osc-fr1.scalingo.io/ysis/post/like",
+        options
+      );
+      const data = await reponse.json();
+
+      this.result = data.success;
+      if (data.sucess === true) {
+        this.message = data.message;
+      }
     },
   },
 };
 </script>
+
+
+
 
 <style>
 body {

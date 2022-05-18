@@ -32,6 +32,9 @@ export default {
 </script>
 
 <style>
+body {
+  height: 1000px;
+}
 
 .logo {
   height: 400px;
@@ -40,7 +43,6 @@ export default {
 
 .link {
   /* background-color: rgb(255, 255, 255); */
-  height: 50px;
   width: 100%;
   display: flex;
   justify-content: space-evenly;
