@@ -19,7 +19,9 @@
                 {{ elem.title }}
                 {{ elem.description }}
                 
-                <input type="button" value="LIKE" @click="commencer" />
+            <p v-if="like === false">LIKE</p>
+            <p v-else class="like">LIKE</p>
+
             </li>
         </ul>
     </div>
@@ -32,11 +34,11 @@
 const token = localStorage.getItem("token");
 
 export default {
-    name: "Post",
+    name: "NewPost",
     data() {
         return {
             list: [],
-
+            like: false,
             inputTask: "",
             info: "",
             infoContent: "",
@@ -88,6 +90,7 @@ export default {
             let post = {
                 title: this.info,
                 content: this.infoContent,
+                false: false
             };
             // on récupère notre array qui se nomme list dans notre data
             // on utilise la fonction concat pour rajouter nos post dans un tableau
@@ -156,6 +159,10 @@ export default {
 </script>
 
 <style>
+
+.like{
+    color: blue;
+}
 /* body {
   background-image: url(./doubleTriangle.jpg);
   background-repeat: no-repeat;
